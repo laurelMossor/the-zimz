@@ -36,15 +36,19 @@ class ZIM:
     
     task_q = []
 
-    # updates needs by adding the incrementer to the current_lvl
     def update_needs(self, needs_display):
+        """ Loops through needs_display and 
+        add the incrementer to the current_lvl to update the need"""
         for sublist in needs_display:
             sublist[1] += sublist[2] 
         return needs_display
 
-    # checks the current_lvl of needs and compares it to the threshold
     # Can I simplify this to look through the needs once and pull from appropriate list? 
     def update_task_q(self, needs_display, task_q):
+        """ Loop through each need in needs_display,
+            Compare current_lvl to threshold, if current_lvl is over threshold,
+            Update task_q with appropriate activity
+            """
         if needs_display[0][1] >= needs_display[0][3]:
             task_q.append(random.choice(bathroom_activities))
         if needs_display[1][1] >= needs_display[1][3]:
@@ -60,6 +64,10 @@ class ZIM:
         return task_q
     
     def meet_needs(self, needs_display, task_q):
+        """ Checks if the 1st item in the task_q matches the first index of a need,
+        Decrement the lvl_satisfied from current_lvl
+        if the time required is 0, remove
+        I DONT THINK THIS WORKS """
         for sublist in range(len(needs_display)):
             # apply the lvl_satisfied to the needs_display
             # decrease time_reqd
