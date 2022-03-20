@@ -18,16 +18,21 @@ def main():
         """One loop is a moment/turn"""
 
         print(f"The time is: {TIME}.")
-        print(peter.needs_display)
-        print(peter.task_q)
+        print(f"Peter's Needs: {peter.needs_display}")
+        print(f"Peter's Tasks: {peter.task_q}")
 
         TIME += 1
 
         peter.update_needs(peter.needs_display)
-        peter.update_task_q(peter.needs_display, peter.task_q)
-        peter.meet_needs(peter.needs_display, peter.task_q)
+        # If nothing in task_q, add something
+        if len(peter.task_q) == 0:
+            peter.update_task_q(peter.needs_display, peter.task_q)
+        # If nothing in task_q, don't update time reqd
+        if len(peter.task_q) > 0:
+            peter.resolve_time_reqd_tasks(peter.needs_display, peter.task_q)
 
 
         input("> ")
+        print()
 
 main()

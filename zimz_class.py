@@ -30,10 +30,6 @@ class ZIM:
              ["Social", 0, 0.75, 5], 
              ["Idle", 1, 0, 1]]
     
-    # def get_indv_need(needs_display):
-    #     for sublist in needs_display:
-
-    
     task_q = []
 
     def update_needs(self, needs_display):
@@ -51,18 +47,35 @@ class ZIM:
             """
         if needs_display[0][1] >= needs_display[0][3]:
             task_q.append(random.choice(bathroom_activities))
-        if needs_display[1][1] >= needs_display[1][3]:
+        elif needs_display[1][1] >= needs_display[1][3]:
             task_q.append(random.choice(hunger_activities))
-        if needs_display[2][1] >= needs_display[2][3]:
+        elif needs_display[2][1] >= needs_display[2][3]:
             task_q.append(random.choice(energy_activities))
-        if needs_display[3][1] >= needs_display[3][3]:
+        elif needs_display[3][1] >= needs_display[3][3]:
             task_q.append(random.choice(social_activities))
         # only add idle action if no items in task_q...
-        if len(task_q) == 0:
+        else:
             task_q.append(random.choice(idle_activities))
 
         return task_q
     
+    def resolve_time_reqd_tasks(self,needs_display,task_q):
+        """ Decrement time reqd of first item in task_q, 
+        Apply amnt of need fulfilled to needs_display
+        Remove if 0"""
+        # task_q[0] = current_activity
+        # task_q[0][0] = need_fullfilment_type
+        task_q[0][3] -= 1
+        if task_q[0][3] <= 0:
+            task_q.pop(0)
+        
+        return needs_display, task_q
+
+    def meet_needs2(self,needs_display,task_q):
+        pass
+
+
+
     def meet_needs(self, needs_display, task_q):
         """ Checks if the 1st item in the task_q matches the first index of a need,
         Decrement the lvl_satisfied from current_lvl
