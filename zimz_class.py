@@ -65,7 +65,8 @@ class ZIM:
         Remove if 0"""
         # task_q[0] = current_activity
         # task_q[0][0] = need_fullfilment_type
-        task_q[0][3] -= 1
+        time_reqd = task_q[0][3]
+        time_reqd -= 1
         if task_q[0][3] <= 0:
             task_q.pop(0)
         
