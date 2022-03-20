@@ -16,7 +16,7 @@ def main():
 
     while True:
         """One loop is a moment/turn"""
-        
+
         print(f"The time is: {TIME}.")
         print(peter.needs_display)
         print(peter.task_q)
@@ -29,3 +29,5 @@ def main():
 
 
         input("> ")
+
+main()
