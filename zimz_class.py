@@ -24,55 +24,59 @@ class ZIM:
         self.age += 1
 
     # [need, current_lvl, incrementer, threshold]
-    needs_display = [["Bathroom", 0, 1, 7], 
-            ["Hunger", 0, 1.2, 6], 
-            ["Energy", 0, 0.5, 8], 
-            ["Social", 0, 0.75, 5], 
-            ["Idle", 1, 0, 1]]
+    # needs_display = [["Bathroom", 0, 1, 7], 
+    #         ["Hunger", 0, 1.2, 6], 
+    #         ["Energy", 0, 0.5, 8], 
+    #         ["Social", 0, 0.75, 5], 
+    #         ["Idle", 1, 0, 1]]
     
-    # needs_display = {
-    #     "Bathroom": {
-    #         "current_lvl": 0,
-    #         "incrementer": 1,
-    #         "threshold": 7
-    #     },
-    #     "Hunger": {
-    #         "current_lvl": 0,
-    #         "incrementer": 1.2,
-    #         "threshold": 6
-    #     },
-    #     "Energy": {
-    #         "current_lvl": 0,
-    #         "incrementer": 0.5,
-    #         "threshold": 8
-    #     },
-    #     "Social": {
-    #         "current_lvl": 0,
-    #         "incrementer": 0.75,
-    #         "threshold": 5
-    #     },
-    #     "Idle": {
-    #         "current_lvl": 1,
-    #         "incrementer": 0,
-    #         "threshold": 1
-    #     }
-    # }
+    needs_display = {
+        "Bathroom": {
+            "current_lvl": 0,
+            "incrementer": 1,
+            "threshold": 7
+        },
+        "Hunger": {
+            "current_lvl": 0,
+            "incrementer": 1.2,
+            "threshold": 6
+        },
+        "Energy": {
+            "current_lvl": 0,
+            "incrementer": 0.5,
+            "threshold": 8
+        },
+        "Social": {
+            "current_lvl": 0,
+            "incrementer": 0.75,
+            "threshold": 5
+        },
+        "Idle": {
+            "current_lvl": 1,
+            "incrementer": 0,
+            "threshold": 1
+        }
+    }
     
     task_q = []
 
-    def update_needs(self, needs_display):
-        # List version
-        """ Loops through needs_display and 
-        add the incrementer to the current_lvl to update the need"""
-        for sublist in needs_display:
-            sublist[1] += sublist[2] 
-        return needs_display
-    
     # def update_needs(self, needs_display):
-    #     #Dictionary version
-    #     for need in needs_display:
-    #         need[current_lvl] += need[incrementer]
+    #     # List version
+    #     """ Loops through needs_display and 
+    #     add the incrementer to the current_lvl to update the need"""
+    #     for sublist in needs_display:
+    #         sublist[1] += sublist[2] 
     #     return needs_display
+    
+    def update_needs(self, needs_display):
+        #Dictionary version
+        for need, specs in needs_display.items():
+            specs["current_lvl"] += specs["incrementer"]
+        return needs_display
+
+
+
+
 
     # Can I simplify this to look through the needs once and pull from appropriate list? 
     def update_task_q(self, needs_display, task_q):
@@ -115,7 +119,7 @@ class ZIM:
         """ Checks if the 1st item in the task_q matches the first index of a need,
         Decrement the lvl_satisfied from current_lvl
         if the time required is 0, remove
-        
+
         I DONT THINK THIS WORKS """
         for sublist in range(len(needs_display)):
             # apply the lvl_satisfied to the needs_display
