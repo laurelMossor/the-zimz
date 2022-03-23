@@ -22,13 +22,6 @@ class ZIM:
 
     def age_up(self):
         self.age += 1
-
-    # [need, current_lvl, incrementer, threshold]
-    # needs_display = [["Bathroom", 0, 1, 7], 
-    #         ["Hunger", 0, 1.2, 6], 
-    #         ["Energy", 0, 0.5, 8], 
-    #         ["Social", 0, 0.75, 5], 
-    #         ["Idle", 1, 0, 1]]
     
     needs_display = {
         "Bathroom": {
@@ -59,14 +52,6 @@ class ZIM:
     }
     
     task_q = []
-
-    # def update_needs(self, needs_display):
-    #     # List version
-    #     """ Loops through needs_display and 
-    #     add the incrementer to the current_lvl to update the need"""
-    #     for sublist in needs_display:
-    #         sublist[1] += sublist[2] 
-    #     return needs_display
     
     def update_needs(self, needs_display):
         #Dictionary version
@@ -77,26 +62,6 @@ class ZIM:
         
         return needs_display
 
-
-    # Can I simplify this to look through the needs once and pull from appropriate list? 
-    # def update_task_q(self, needs_display, task_q):
-    #     """ Loop through each need in needs_display,
-    #         Compare current_lvl to threshold, if current_lvl is over threshold,
-    #         Update task_q with appropriate activity
-    #         """
-    #     if needs_display[0][1] >= needs_display[0][3]:
-    #         task_q.append(random.choice(bathroom_activities))
-    #     elif needs_display[1][1] >= needs_display[1][3]:
-    #         task_q.append(random.choice(hunger_activities))
-    #     elif needs_display[2][1] >= needs_display[2][3]:
-    #         task_q.append(random.choice(energy_activities))
-    #     elif needs_display[3][1] >= needs_display[3][3]:
-    #         task_q.append(random.choice(social_activities))
-    #     # only add idle action if no items in task_q...
-    #     else:
-    #         task_q.append(random.choice(idle_activities))
-
-    #     return task_q
     
     def update_task_q(self, needs_display, task_q):
         # Dictionary version
@@ -119,20 +84,14 @@ class ZIM:
         return task_q
 
 
-
-
-
     def resolve_time_reqd_tasks(self,needs_display,task_q):
         """ Decrement time reqd of first item in task_q, 
-        NOT HERE, LATER --> Apply amnt of need fulfilled to needs_display
         Remove if 0"""
 
         if task_q[0][3] <= 0:
-            # meet_needs(needs_display, task_q)
             task_q.pop(0)
         task_q[0][3] -= 1
 
-        # USE DICT TO APPLY TO NEEDS! MAKE NEEDS A DICT??
         return task_q
 
     def meet_needs(self,needs_display,task_q):
@@ -142,29 +101,4 @@ class ZIM:
         needs_display[being_met]["current_lvl"] -= task_q[0][2]
 
         return needs_display
-
-
-
-
-
-
-
-
-
-    # def meet_needs(self, needs_display, task_q):
-    #     """ Checks if the 1st item in the task_q matches the first index of a need,
-    #     Decrement the lvl_satisfied from current_lvl
-    #     if the time required is 0, remove
-
-    #     I DONT THINK THIS WORKS """
-    #     for sublist in range(len(needs_display)):
-    #         # apply the lvl_satisfied to the needs_display
-    #         # decrease time_reqd
-    #         # if time_reqd <= 0, remove item
-    #         if task_q[0][1] == needs_display[sublist][0]:
-    #             needs_display[sublist][1] -= task_q[0][2]
-    #             task_q[0][3] -=1
-    #             if task_q[0][3] == 0:
-    #                 task_q.pop(0)
-
 
