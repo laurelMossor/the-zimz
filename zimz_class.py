@@ -25,19 +25,54 @@ class ZIM:
 
     # [need, current_lvl, incrementer, threshold]
     needs_display = [["Bathroom", 0, 1, 7], 
-             ["Hunger", 0, 1.2, 6], 
-             ["Energy", 0, 0.5, 8], 
-             ["Social", 0, 0.75, 5], 
-             ["Idle", 1, 0, 1]]
+            ["Hunger", 0, 1.2, 6], 
+            ["Energy", 0, 0.5, 8], 
+            ["Social", 0, 0.75, 5], 
+            ["Idle", 1, 0, 1]]
+    
+    # needs_display = {
+    #     "Bathroom": {
+    #         "current_lvl": 0,
+    #         "incrementer": 1,
+    #         "threshold": 7
+    #     },
+    #     "Hunger": {
+    #         "current_lvl": 0,
+    #         "incrementer": 1.2,
+    #         "threshold": 6
+    #     },
+    #     "Energy": {
+    #         "current_lvl": 0,
+    #         "incrementer": 0.5,
+    #         "threshold": 8
+    #     },
+    #     "Social": {
+    #         "current_lvl": 0,
+    #         "incrementer": 0.75,
+    #         "threshold": 5
+    #     },
+    #     "Idle": {
+    #         "current_lvl": 1,
+    #         "incrementer": 0,
+    #         "threshold": 1
+    #     }
+    # }
     
     task_q = []
 
     def update_needs(self, needs_display):
+        # List version
         """ Loops through needs_display and 
         add the incrementer to the current_lvl to update the need"""
         for sublist in needs_display:
             sublist[1] += sublist[2] 
         return needs_display
+    
+    # def update_needs(self, needs_display):
+    #     #Dictionary version
+    #     for need in needs_display:
+    #         need[current_lvl] += need[incrementer]
+    #     return needs_display
 
     # Can I simplify this to look through the needs once and pull from appropriate list? 
     def update_task_q(self, needs_display, task_q):
@@ -68,7 +103,7 @@ class ZIM:
         task_q[0][3] -= 1
         if task_q[0][3] <= 0:
             task_q.pop(0)
-        
+        # USE DICT TO APPLY TO NEEDS! MAKE NEEDS A DICT??
         return needs_display, task_q
 
     def meet_needs2(self,needs_display,task_q):
