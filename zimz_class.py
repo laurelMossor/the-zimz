@@ -1,4 +1,4 @@
-import random 
+from random import choice 
 
 # activities that are queued up to satisfy the current greatest need
 # [action, lvl_satisfied, time_reqd]
@@ -70,33 +70,53 @@ class ZIM:
     
     def update_needs(self, needs_display):
         #Dictionary version
+        """ Loops through needs_display and 
+        add the incrementer to the current_lvl to update the need"""
         for need, specs in needs_display.items():
             specs["current_lvl"] += specs["incrementer"]
         return needs_display
 
 
-
-
-
     # Can I simplify this to look through the needs once and pull from appropriate list? 
-    def update_task_q(self, needs_display, task_q):
-        """ Loop through each need in needs_display,
-            Compare current_lvl to threshold, if current_lvl is over threshold,
-            Update task_q with appropriate activity
-            """
-        if needs_display[0][1] >= needs_display[0][3]:
-            task_q.append(random.choice(bathroom_activities))
-        elif needs_display[1][1] >= needs_display[1][3]:
-            task_q.append(random.choice(hunger_activities))
-        elif needs_display[2][1] >= needs_display[2][3]:
-            task_q.append(random.choice(energy_activities))
-        elif needs_display[3][1] >= needs_display[3][3]:
-            task_q.append(random.choice(social_activities))
-        # only add idle action if no items in task_q...
-        else:
-            task_q.append(random.choice(idle_activities))
+    # def update_task_q(self, needs_display, task_q):
+    #     """ Loop through each need in needs_display,
+    #         Compare current_lvl to threshold, if current_lvl is over threshold,
+    #         Update task_q with appropriate activity
+    #         """
+    #     if needs_display[0][1] >= needs_display[0][3]:
+    #         task_q.append(random.choice(bathroom_activities))
+    #     elif needs_display[1][1] >= needs_display[1][3]:
+    #         task_q.append(random.choice(hunger_activities))
+    #     elif needs_display[2][1] >= needs_display[2][3]:
+    #         task_q.append(random.choice(energy_activities))
+    #     elif needs_display[3][1] >= needs_display[3][3]:
+    #         task_q.append(random.choice(social_activities))
+    #     # only add idle action if no items in task_q...
+    #     else:
+    #         task_q.append(random.choice(idle_activities))
 
+    #     return task_q
+    
+    def update_task_q(self, needs_display, task_q):
+        # Dictionary version
+        """ Loop through each need in needs_display,
+        Compare current_lvl to threshold, 
+        if current_lvl is over threshold,
+        Update task_q with appropriate activity
+        """
+        if needs_display["Bathroom"]["current_lvl"] > needs_display["Bathroom"]["threshold"]:
+            task_q.append(choice(bathroom_activities))
+        elif needs_display["Hunger"]["current_lvl"] > needs_display["Hunger"]["threshold"]:
+            task_q.append(choice(hunger_activities))
+        elif needs_display["Energy"]["current_lvl"] > needs_display["Energy"]["threshold"]:
+            task_q.append(choice(energy_activities))
+        elif needs_display["Social"]["current_lvl"] > needs_display["Social"]["threshold"]:
+            task_q.append(choice(social_activities))
+        else:
+            task_q.append(choice(idle_activities))
+        
         return task_q
+
     
     def resolve_time_reqd_tasks(self,needs_display,task_q):
         """ Decrement time reqd of first item in task_q, 
