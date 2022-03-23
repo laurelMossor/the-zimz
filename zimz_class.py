@@ -6,7 +6,7 @@ idle_activities = [["Idle", "reading the newspaper", 0, 1], ["Idle", "washing th
 hunger_activities = [["Hunger", "having a snack", 5, 1],["Hunger", "eating dinner", 7, 3]]
 energy_activities = [["Energy", "sleeping", 8, 8]]
 social_activities = [["Social", "chatting with a friend", 3, 2]]
-bathroom_activities = [["Bathroom", "going pee", 7, 1], ["Bathroom", "having a tinkle", 7, 1], ["Bathroom", "taking a piss", 7, 1], ["Bathroom", "going poop", 7, 2]]
+bathroom_activities = [["Bathroom", "going pee", 6, 1], ["Bathroom", "having a tinkle", 6, 1], ["Bathroom", "taking a piss", 6, 1], ["Bathroom", "going poop", 6, 2]]
 
 
 class ZIM:
@@ -74,6 +74,7 @@ class ZIM:
         add the incrementer to the current_lvl to update the need"""
         for need, specs in needs_display.items():
             specs["current_lvl"] += specs["incrementer"]
+        
         return needs_display
 
 
@@ -117,38 +118,53 @@ class ZIM:
         
         return task_q
 
-    
+
+
+
+
     def resolve_time_reqd_tasks(self,needs_display,task_q):
         """ Decrement time reqd of first item in task_q, 
-        Apply amnt of need fulfilled to needs_display
+        NOT HERE, LATER --> Apply amnt of need fulfilled to needs_display
         Remove if 0"""
-        # task_q[0] = current_activity
-        # task_q[0][0] = need_fullfilment_type
-        task_q[0][3] -= 1
+
         if task_q[0][3] <= 0:
+            # meet_needs(needs_display, task_q)
             task_q.pop(0)
+        task_q[0][3] -= 1
+
         # USE DICT TO APPLY TO NEEDS! MAKE NEEDS A DICT??
-        return needs_display, task_q
+        return task_q
 
-    def meet_needs2(self,needs_display,task_q):
-        pass
+    def meet_needs(self,needs_display,task_q):
+        """ Read the first item in the list, 
+        turn first index into key to apply to neesd display"""
+        being_met = task_q[0][0]
+        needs_display[being_met]["current_lvl"] -= task_q[0][2]
+
+        return needs_display
 
 
 
-    def meet_needs(self, needs_display, task_q):
-        """ Checks if the 1st item in the task_q matches the first index of a need,
-        Decrement the lvl_satisfied from current_lvl
-        if the time required is 0, remove
 
-        I DONT THINK THIS WORKS """
-        for sublist in range(len(needs_display)):
-            # apply the lvl_satisfied to the needs_display
-            # decrease time_reqd
-            # if time_reqd <= 0, remove item
-            if task_q[0][1] == needs_display[sublist][0]:
-                needs_display[sublist][1] -= task_q[0][2]
-                task_q[0][3] -=1
-                if task_q[0][3] == 0:
-                    task_q.pop(0)
+
+
+
+
+
+    # def meet_needs(self, needs_display, task_q):
+    #     """ Checks if the 1st item in the task_q matches the first index of a need,
+    #     Decrement the lvl_satisfied from current_lvl
+    #     if the time required is 0, remove
+
+    #     I DONT THINK THIS WORKS """
+    #     for sublist in range(len(needs_display)):
+    #         # apply the lvl_satisfied to the needs_display
+    #         # decrease time_reqd
+    #         # if time_reqd <= 0, remove item
+    #         if task_q[0][1] == needs_display[sublist][0]:
+    #             needs_display[sublist][1] -= task_q[0][2]
+    #             task_q[0][3] -=1
+    #             if task_q[0][3] == 0:
+    #                 task_q.pop(0)
 
 
