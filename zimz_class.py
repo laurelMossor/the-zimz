@@ -69,6 +69,7 @@ class ZIM:
         Compare current_lvl to threshold, 
         if current_lvl is over threshold,
         Update task_q with appropriate activity
+        > ONLY add task to task q if not already represented in task q
         """
         if needs_display["Bathroom"]["current_lvl"] > needs_display["Bathroom"]["threshold"]:
             task_q.append(choice(bathroom_activities))
