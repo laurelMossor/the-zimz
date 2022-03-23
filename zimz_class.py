@@ -115,6 +115,7 @@ class ZIM:
         """ Checks if the 1st item in the task_q matches the first index of a need,
         Decrement the lvl_satisfied from current_lvl
         if the time required is 0, remove
+        
         I DONT THINK THIS WORKS """
         for sublist in range(len(needs_display)):
             # apply the lvl_satisfied to the needs_display
