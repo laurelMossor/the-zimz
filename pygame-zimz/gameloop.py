@@ -1,7 +1,7 @@
-from zimz_class import ZIM
+from zimz_class import Zim
 
-peter = ZIM("Peter", "Zim", 32)
-polina = ZIM("Polina", "Zim", 27)
+peter = Zim("Peter", "Zim", 32)
+polina = Zim("Polina", "Zim", 27)
 
 
 def main():

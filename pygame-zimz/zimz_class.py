@@ -9,7 +9,7 @@ social_activities = [["Social", "chatting with a friend", 3, 2]]
 bathroom_activities = [["Bathroom", "going pee", 6, 1], ["Bathroom", "having a tinkle", 6, 1], ["Bathroom", "taking a piss", 6, 1], ["Bathroom", "going poop", 6, 2]]
 
 
-class ZIM:
+class Zim:
     
     def __init__(self, first, last, age):
         self.first = first
