@@ -1,0 +1,2 @@
+# The Zimz
+Welcome to version 2 of my simulation game exploration! Here I practice Object Oriented Programming and other important job-related buzzwords. But in reality, this is a passion project based entirely on The Sims... but better.
