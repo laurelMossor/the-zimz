@@ -17,18 +17,25 @@ class Zim {
         this.firstName = firstName;
         this.lastName = lastName;
         this.myTaskQ = new TaskQ();
-        this.bathroomNeed = new BasicNeed("Bathroom",0,1,7);
-        this.hungerNeed = new BasicNeed("Hunger",0,1.2,6);
-        this.idling = new BasicNeed("Idle",1,0,1);
+        // this.bathroomNeed = new BasicNeed("Bathroom",0,1,7);
+        // this.hungerNeed = new BasicNeed("Hunger",0,1.2,6);
+        // this.idling = new BasicNeed("Idle",1,0,1);
+        this.basicNeeds = {
+            bathroomNeed: new BasicNeed("Bathroom",0,1,7),
+            hungerNeed: new BasicNeed("Hunger",0,1.2,6),
+            idling: new BasicNeed("Idle",1,0,1),
+        };
+
     }
     
-    displayNeeds() {
-        let allNeeds = [this.bathroomNeed, this.hungerNeed, this.idling]
+    // displayNeeds() {
+    //     let allNeeds = [this.bathroomNeed, this.hungerNeed, this.idling]
 
-        for (let i in allNeeds) {
-            console.log(`- ${allNeeds[i].label} need: ${allNeeds[i].currentLvl}`)
-            }
-        }
+    //     for (let i in allNeeds) {
+    //         console.log(`- ${allNeeds[i].label} need: ${allNeeds[i].currentLvl}`)
+    //         }
+    //     for (const i in )
+    //     }
         // it would be nice if they were listed in an array 
     
 };
@@ -90,7 +97,8 @@ function statusUpdate(allZimz) {
     
     for (const i in allZimz) {
         console.log()
-        console.log(`${allZimz[i].firstName}'s needs: ${allZimz[i].displayNeeds()}`) // Needs
+        console.log(`${allZimz[i].firstName}'s needs:`) // Needs
+        console.log(allZimz[i].basicNeeds)
         console.log(`${allZimz[i].firstName}'s tasks: ${allZimz[i].myTaskQ.elements}`) // Task Q
         console.log()
     }
@@ -112,3 +120,4 @@ function mainLoop() {
 };
 
 mainLoop()
+// statusUpdate(allZimz)
