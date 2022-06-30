@@ -2,11 +2,11 @@ from random import choice
 
 # activities that are queued up to satisfy the current greatest need
 # [action, lvl_satisfied, time_reqd]
-idle_activities = [["Idle", "reading the newspaper", 0, 1], ["Idle", "washing the dishes", 0, 2], ["Idle", "humming", 0, 1], ["Idle", "planning the next meal", 0, 1]]
+bathroom_activities = [["Bathroom", "going pee", 6, 1], ["Bathroom", "having a tinkle", 6, 1], ["Bathroom", "taking a piss", 6, 1], ["Bathroom", "going poop", 6, 2]]
 hunger_activities = [["Hunger", "having a snack", 5, 1],["Hunger", "eating dinner", 7, 3]]
+idle_activities = [["Idle", "reading the newspaper", 0, 1], ["Idle", "washing the dishes", 0, 2], ["Idle", "humming", 0, 1], ["Idle", "planning the next meal", 0, 1]]
 energy_activities = [["Energy", "sleeping", 8, 8]]
 social_activities = [["Social", "chatting with a friend", 3, 2]]
-bathroom_activities = [["Bathroom", "going pee", 6, 1], ["Bathroom", "having a tinkle", 6, 1], ["Bathroom", "taking a piss", 6, 1], ["Bathroom", "going poop", 6, 2]]
 
 
 class Zim:
