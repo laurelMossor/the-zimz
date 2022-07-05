@@ -18,18 +18,22 @@ class Zim {
         this.lastName = lastName;
         this.myTaskQ = new TaskQ();
 
-        this.bathroomNeed = new BasicNeed("Bathroom",0,1,7),
-        this.hungerNeed = new BasicNeed("Hunger",0,1.2,6),
-        this.idling = new BasicNeed("Idle",1,0,1),
+        this.bathroomNeed = new BasicNeed("Bathroom",0,1,7);
+        this.hungerNeed = new BasicNeed("Hunger",0,1.2,6);
+        this.idling = new BasicNeed("Idle",1,0,1);
         
         this.basicNeeds = [this.bathroomNeed, 
-            this.hungerNeed, this.idling]
+            this.hungerNeed, this.idling];
     }
-    incrementNeeds() {
-        for (const need of this.basicNeeds) {
-
-        }
-    } 
+    // status() {
+    //     console.log(`${this.firstName}'s needs: ${this.basicNeeds}`)
+    //     console.log(`${this.firstName}'s tasks: ${this.myTaskQ}`)
+    // }
+    // incrementNeeds() {
+    //     for (const need of this.basicNeeds) {
+    //         need.currentLvl += need.incrementer
+    //     }
+    // } 
 
     
 };
@@ -96,16 +100,20 @@ function testSetUp() {
 };
 
 /////// HELPER FUNCTIONS ///////
-function statusUpdate(allZimz) {
-    
-    for (const i in allZimz) {
-        console.log()
-        console.log(`${allZimz[i].firstName}'s needs:`) // Needs
-        console.log(allZimz[i].basicNeeds)
-        console.log(`${allZimz[i].firstName}'s tasks: ${allZimz[i].myTaskQ.elements}`) // Task Q
-        console.log()
-    }
-};
+
+function statusUpdate(zim) {
+    console.log()
+    console.log(`${zim.firstName}'s needs:`) // Needs
+    console.log(zim.basicNeeds)
+    console.log(`${zim.firstName}'s tasks: ${zim.myTaskQ.elements}`) // Task Q
+    console.log()
+}
+
+
+function updateZimNeeds(zim) {
+    zim.bathroomNeed.currentLvl += zim.bathroomNeed.incrementer 
+    zim.hungerNeed.currentLvl += zim.hungerNeed.incrementer
+}
 
 
 
@@ -119,7 +127,11 @@ function mainLoop() {
     while (time < 5) {
 
         console.log(`~~The time is ${time}~~`)
-        statusUpdate(allZimz)
+
+        for (const i in allZimz) {
+            statusUpdate(allZimz[i])
+            updateZimNeeds(allZimz[i])
+        }
 
         time++
     }
