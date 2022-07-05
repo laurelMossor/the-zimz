@@ -17,26 +17,20 @@ class Zim {
         this.firstName = firstName;
         this.lastName = lastName;
         this.myTaskQ = new TaskQ();
-        // this.bathroomNeed = new BasicNeed("Bathroom",0,1,7);
-        // this.hungerNeed = new BasicNeed("Hunger",0,1.2,6);
-        // this.idling = new BasicNeed("Idle",1,0,1);
-        this.basicNeeds = {
-            bathroomNeed: new BasicNeed("Bathroom",0,1,7),
-            hungerNeed: new BasicNeed("Hunger",0,1.2,6),
-            idling: new BasicNeed("Idle",1,0,1),
-        };
 
+        this.bathroomNeed = new BasicNeed("Bathroom",0,1,7),
+        this.hungerNeed = new BasicNeed("Hunger",0,1.2,6),
+        this.idling = new BasicNeed("Idle",1,0,1),
+        
+        this.basicNeeds = [this.bathroomNeed, 
+            this.hungerNeed, this.idling]
     }
-    
-    // displayNeeds() {
-    //     let allNeeds = [this.bathroomNeed, this.hungerNeed, this.idling]
+    incrementNeeds() {
+        for (const need of this.basicNeeds) {
 
-    //     for (let i in allNeeds) {
-    //         console.log(`- ${allNeeds[i].label} need: ${allNeeds[i].currentLvl}`)
-    //         }
-    //     for (const i in )
-    //     }
-        // it would be nice if they were listed in an array 
+        }
+    } 
+
     
 };
 
@@ -92,6 +86,15 @@ let polina = new Zim("Polina", "Zim");
 
 const allZimz = [peter, polina]
 
+///////////////////////////////
+function testSetUp() {
+    // sets up different need levels for peter and polina
+    peter.bathroomNeed.currentLvl = 4
+    peter.hungerNeed.currentLvl = 2
+    polina.hungerNeed.currentLvl = 5 
+    polina.bathroomNeed.threshold = 8
+};
+
 /////// HELPER FUNCTIONS ///////
 function statusUpdate(allZimz) {
     
@@ -104,9 +107,13 @@ function statusUpdate(allZimz) {
     }
 };
 
+
+
 ////////////////// MAIN LOOP ////////////////////////
 function mainLoop() {
-
+    
+    testSetUp()
+    
     let time = 0
 
     while (time < 5) {
@@ -121,3 +128,4 @@ function mainLoop() {
 
 mainLoop()
 // statusUpdate(allZimz)
+
