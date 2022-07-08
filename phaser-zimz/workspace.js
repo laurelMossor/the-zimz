@@ -17,7 +17,6 @@ class Zim {
         this.firstName = firstName;
         this.lastName = lastName;
         this.myTaskQ = new TaskQ();
-
         this.bathroomNeed = new BasicNeed("Bathroom",0,1,7);
         this.hungerNeed = new BasicNeed("Hunger",0,1.2,6);
         this.idling = new BasicNeed("Idle",1,0,1);
@@ -25,17 +24,6 @@ class Zim {
         this.basicNeeds = [this.bathroomNeed, 
             this.hungerNeed, this.idling];
     }
-    // status() {
-    //     console.log(`${this.firstName}'s needs: ${this.basicNeeds}`)
-    //     console.log(`${this.firstName}'s tasks: ${this.myTaskQ}`)
-    // }
-    // incrementNeeds() {
-    //     for (const need of this.basicNeeds) {
-    //         need.currentLvl += need.incrementer
-    //     }
-    // } 
-
-    
 };
 
 class BasicNeed {
@@ -45,7 +33,6 @@ class BasicNeed {
     this.incrementer = incrementer;
     this.threshold = threshold;
     }
-  // increment func 
 };
 
 class Activity {
@@ -79,10 +66,12 @@ let washingDishes = new Activity(idle,"washing the dishes",0,2)
 
 //// ACTIVITIES BY BASIC NEEDS DATABASE OBJECT ////
 let activitiesByNeed = {
-    bathroom: [goingPee,],
-    hunger: [haveSnack,],
-    idle: [readingNews,washingDishes,],
+    "Bathroom": [goingPee,],
+    "Hunger": [haveSnack,],
+    "Idle": [readingNews,washingDishes,]
 };
+// I can't figure out how to iterate through the subarrays, and therefore 
+// to check the Q for things that are in the Q already 
 
 ////// ZIMZ ///////
 let peter = new Zim("Peter", "Zim");
@@ -90,7 +79,7 @@ let polina = new Zim("Polina", "Zim");
 
 const allZimz = [peter, polina]
 
-///////////////////////////////
+/** Creates testing conditions where the two zimz have slightly varied needs */
 function testSetUp() {
     // sets up different need levels for peter and polina
     peter.bathroomNeed.currentLvl = 4
@@ -100,7 +89,12 @@ function testSetUp() {
 };
 
 /////// HELPER FUNCTIONS ///////
+function randomChoice(choices) {
+    let index = Math.floor(Math.random() * choices.length);
+    return choices[index];
+}
 
+//** Console Logs the current needs and taskQ */
 function statusUpdate(zim) {
     console.log()
     console.log(`${zim.firstName}'s needs:`) // Needs
@@ -109,10 +103,34 @@ function statusUpdate(zim) {
     console.log()
 }
 
-
+/** Updates the currentLvl by adding the incrementer */
 function updateZimNeeds(zim) {
-    zim.bathroomNeed.currentLvl += zim.bathroomNeed.incrementer 
-    zim.hungerNeed.currentLvl += zim.hungerNeed.incrementer
+    for (const need of zim.basicNeeds) {
+        need.currentLvl += need.incrementer
+    }
+}
+
+// function isInQ(zim, activity) {
+// // activity is 
+// }
+
+function checkThresholdsAddTasks(zim) {
+    for (const need of zim.basicNeeds) {
+        if (need.currentLvl >= need.threshold) {
+            if (need.label == "Idle" && zim.myTaskQ.elements.length > 0) {
+                continue
+            }
+            let newActivity = randomChoice(activitiesByNeed[need]) 
+            // this is having issues because this gets an object not an array 
+            // Only seems to work with .label
+            
+            // check before adding the label to Q
+            zim.myTaskQ.elements.push(newActivity.label)
+            // if newTask.... i'd have to look through the existing task Q 
+            // to see if it's already represented 
+        }
+    }
+    // need to not add the task if it's already represented in the task q
 }
 
 
@@ -128,9 +146,10 @@ function mainLoop() {
 
         console.log(`~~The time is ${time}~~`)
 
-        for (const i in allZimz) {
-            statusUpdate(allZimz[i])
-            updateZimNeeds(allZimz[i])
+        for (const zim of allZimz) {
+            statusUpdate(zim)
+            updateZimNeeds(zim)
+            checkThresholdsAddTasks(zim)
         }
 
         time++
@@ -138,6 +157,5 @@ function mainLoop() {
     
 };
 
-mainLoop()
-// statusUpdate(allZimz)
+// mainLoop()
 
